@@ -1,0 +1,6 @@
+name: NPluginApi
+version: '${version}'
+main: ru.n08i40k.npluginapi.NPluginApi
+api-version: '1.16'
+depend:
+  - NBTAPI
