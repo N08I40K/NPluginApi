@@ -2,18 +2,20 @@ package ru.n08i40k.npluginapi.listener;
 
 import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.*;
-
+import org.bukkit.inventory.EquipmentSlot;
 import ru.n08i40k.npluginapi.event.itemStack.*;
 
 public class NItemStackEventListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onInteractEntity(PlayerInteractEvent event) {
+    public void onInteract(PlayerInteractEvent event) {
         NItemStackEvent.post(NItemStackInteractEvent.class, event.getItem(), event);
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -21,7 +23,7 @@ public class NItemStackEventListener implements Listener {
         NItemStackEvent.post(NItemStackInteractEntityEvent.class, event.getPlayer().getInventory().getItem(event.getHand()), event);
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onInteractEntity(PlayerInteractAtEntityEvent event) {
+    public void onInteractAtEntity(PlayerInteractAtEntityEvent event) {
         NItemStackEvent.post(NItemStackInteractAtEntityEvent.class, event.getPlayer().getInventory().getItem(event.getHand()), event);
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -59,5 +61,16 @@ public class NItemStackEventListener implements Listener {
             return;
 
         NItemStackEvent.post(NItemStackRemoveFromWorldEvent.class, item.getItemStack(), event);
+    }
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof LivingEntity livingEntity))
+            return;
+
+        if (livingEntity.getEquipment() == null)
+            return;
+
+        NItemStackEvent.post(NItemStackDamageEntityEvent.class, livingEntity.getEquipment().getItem(EquipmentSlot.HAND), event);
+        NItemStackEvent.post(NItemStackDamageEntityEvent.class, livingEntity.getEquipment().getItem(EquipmentSlot.OFF_HAND), event);
     }
 }

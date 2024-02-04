@@ -9,7 +9,7 @@ import ru.n08i40k.npluginapi.event.block.NBlockPlaceEvent;
 import ru.n08i40k.npluginapi.event.itemStack.NItemStackBlockPlaceEvent;
 import ru.n08i40k.npluginapi.event.itemStack.NItemStackEvent;
 
-public class NSharedListener implements Listener {
+public class NSharedEventListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlace(BlockPlaceEvent event) {
         NItemStackEvent.post(NItemStackBlockPlaceEvent.class, event.getItemInHand(), event);

@@ -1,15 +1,8 @@
 package ru.n08i40k.npluginapi.itemStack;
 
-import com.google.common.base.Preconditions;
-import de.tr7zw.nbtapi.NBTBlock;
 import lombok.Getter;
 import lombok.NonNull;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
@@ -21,8 +14,6 @@ import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
 import ru.n08i40k.npluginapi.resource.NResourceGroup;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
-
-import java.util.Objects;
 
 public abstract class NItemStack implements INResourceKeyHolder {
     @NonNull
@@ -65,7 +56,7 @@ public abstract class NItemStack implements INResourceKeyHolder {
         return NItemStackNBT.applyNBTCompound(this);
     }
 
-    public void onInteract         (NItemStackInteractEvent event)          {}
+    public void onInteract          (NItemStackInteractEvent event)         {}
     public void onInteractEntity    (NItemStackInteractEntityEvent event)   {}
     public void onInteractAtEntity  (NItemStackInteractAtEntityEvent event) {}
     public void onDrop              (NItemStackDropEvent event)             {}
@@ -94,6 +85,7 @@ public abstract class NItemStack implements INResourceKeyHolder {
     }
     public void onBreak             (NItemStackBreakEvent event)            {}
     public void onDamage            (NItemStackDamageEvent event)           {}
+    public void onDamageEntity      (NItemStackDamageEntityEvent event)     {}
     public void onMend              (NItemStackMendEvent event)             {}
     public void onHeld              (NItemStackHeldEvent event)             {}
     public void onConsume           (NItemStackConsumeEvent event)          {}
