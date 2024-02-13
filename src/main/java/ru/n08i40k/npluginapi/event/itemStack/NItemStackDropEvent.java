@@ -2,10 +2,9 @@ package ru.n08i40k.npluginapi.event.itemStack;
 
 import lombok.Getter;
 import lombok.NonNull;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.inventory.ItemStack;
-import ru.n08i40k.npluginapi.itemStack.NItemStack;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
 
 @Getter
 @NonNull

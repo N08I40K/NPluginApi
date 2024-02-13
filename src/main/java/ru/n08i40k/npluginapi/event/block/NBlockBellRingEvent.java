@@ -2,7 +2,7 @@ package ru.n08i40k.npluginapi.event.block;
 
 import io.papermc.paper.event.block.BellRingEvent;
 import org.bukkit.block.Block;
-import ru.n08i40k.npluginapi.block.NBlock;
+import ru.n08i40k.npluginapi.custom.block.NBlock;
 
 public class NBlockBellRingEvent extends NBlockEvent<BellRingEvent> {
 

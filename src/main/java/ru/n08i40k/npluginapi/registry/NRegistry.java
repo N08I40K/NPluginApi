@@ -1,9 +1,8 @@
-package ru.n08i40k.npluginapi.database;
+package ru.n08i40k.npluginapi.registry;
 
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.NonNull;
-import org.bukkit.plugin.Plugin;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
@@ -52,7 +51,7 @@ public abstract class NRegistry<K extends INResourceKeyHolder> {
 
     public K add(@NonNull K element) {
         Preconditions.checkState(!contains(element.getNResourceKey()),
-                "%s with id %s is exists!", getChildExtendClassName(), element.getNResourceKey());
+                "%s with getId %s is exists!", getChildExtendClassName(), element.getNResourceKey());
 
         data.put(element.getNResourceKey(), element);
 
@@ -63,7 +62,7 @@ public abstract class NRegistry<K extends INResourceKeyHolder> {
 
     public K remove(@NonNull NResourceKey nResourceKey) {
         Preconditions.checkState(contains(nResourceKey),
-                "Cannot find %s with id %s", getChildExtendClassName(), nResourceKey);
+                "Cannot find %s with getId %s", getChildExtendClassName(), nResourceKey);
 
         return data.remove(nResourceKey);
     }
@@ -84,7 +83,7 @@ public abstract class NRegistry<K extends INResourceKeyHolder> {
 
     protected K getElement(@NonNull NResourceKey nResourceKey) {
         Preconditions.checkState(contains(nResourceKey),
-                "Cannot find %s with id %s", getChildExtendClassName(), nResourceKey);
+                "Cannot find %s with getId %s", getChildExtendClassName(), nResourceKey);
 
         return data.get(nResourceKey);
     }

@@ -8,11 +8,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.craft.NCraftRecipe;
+import ru.n08i40k.npluginapi.custom.craft.NCraftRecipe;
 import ru.n08i40k.npluginapi.gui.list.select.registry.SelectRegistryEventListener;
 import ru.n08i40k.npluginapi.gui.list.view.ViewCraftRecipeGuiHolder;
-import ru.n08i40k.npluginapi.itemStack.NItemStack;
-import ru.n08i40k.npluginapi.itemStack.NItemStackNBT;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStackNBT;
 import ru.n08i40k.npluginapi.resource.NResourceGroup;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 

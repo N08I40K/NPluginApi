@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.*;
-import ru.n08i40k.npluginapi.craft.NCraftRecipe;
+import ru.n08i40k.npluginapi.custom.craft.NCraftRecipe;
 
 import java.util.Map;
 

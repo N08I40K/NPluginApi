@@ -2,8 +2,7 @@ package ru.n08i40k.npluginapi.event.entity;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import org.bukkit.entity.Entity;
-import org.bukkit.event.entity.EntityAirChangeEvent;
-import ru.n08i40k.npluginapi.entity.NEntity;
+import ru.n08i40k.npluginapi.custom.entity.NEntity;
 
 public class NEntityAddToWorldEvent extends NEntityEvent<EntityAddToWorldEvent> {
 

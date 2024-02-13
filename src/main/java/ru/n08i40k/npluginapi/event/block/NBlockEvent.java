@@ -1,16 +1,16 @@
 package ru.n08i40k.npluginapi.event.block;
 
-import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTCompound;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import meteordevelopment.orbit.ICancellable;
 import org.bukkit.block.Block;
+import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.block.NBlock;
-import ru.n08i40k.npluginapi.block.NBlockNBT;
+import ru.n08i40k.npluginapi.custom.block.NBlock;
+import ru.n08i40k.npluginapi.custom.block.NBlockNBT;
 import ru.n08i40k.npluginapi.event.NPluginBusManager;
 
 import java.lang.reflect.InvocationTargetException;
@@ -64,7 +64,7 @@ public abstract class NBlockEvent<T extends org.bukkit.event.Event> implements I
         {
             if (!nBlock1.isSameType(block)) {
                 NPluginApi.getInstance().getSLF4JLogger().warn(
-                        "Block at [{}] has NBlock {} id, but it material isn't same! (Block {} - NBlock {})\nClearing NBTCompound...",
+                        "Block at [{}] has NBlock {} getId, but it material isn't same! (Block {} - NBlock {})\nClearing NBTCompound...",
                         block.getLocation(), nBlock1.getNResourceKey(),
                         block.getType(), nBlock1.getMaterial());
 
@@ -90,5 +90,8 @@ public abstract class NBlockEvent<T extends org.bukkit.event.Event> implements I
 
         if (!event.isCancelled())
             event.execute();
+
+        if (bukkitEvent instanceof Cancellable cancellableBukkitEvent)
+            cancellableBukkitEvent.setCancelled(event.isCancelled());
     }
 }

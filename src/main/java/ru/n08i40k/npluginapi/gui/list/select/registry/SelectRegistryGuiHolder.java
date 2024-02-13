@@ -11,7 +11,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NRegistry;
+import ru.n08i40k.npluginapi.registry.NRegistry;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginlocale.LocaleRequestBuilder;

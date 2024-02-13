@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.itemStack;
+package ru.n08i40k.npluginapi.custom.itemStack;
 
 import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTCompound;
@@ -7,7 +7,7 @@ import lombok.NonNull;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NItemStackRegistry;
+import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
@@ -39,7 +39,7 @@ public class NItemStackNBT {
         NPluginManager nPluginManager = NPluginApi.getInstance().getNPluginManager();
         NItemStackRegistry nItemStackRegistry = nPluginManager.getNItemStackRegistry();
         Preconditions.checkState(nItemStackRegistry.contains(nResourceKey),
-                "Can't find NItemStack with id %s!", nResourceKey);
+                "Can't find NItemStack with getId %s!", nResourceKey);
 
         return nItemStackRegistry.getNItemStack(nResourceKey);
     }

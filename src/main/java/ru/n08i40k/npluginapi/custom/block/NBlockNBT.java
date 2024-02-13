@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.block;
+package ru.n08i40k.npluginapi.custom.block;
 
 import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTBlock;
@@ -7,10 +7,9 @@ import de.tr7zw.nbtapi.NBTCompound;
 import lombok.NonNull;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NBlockRegistry;
+import ru.n08i40k.npluginapi.registry.NBlockRegistry;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
@@ -83,7 +82,7 @@ public class NBlockNBT {
         NPluginManager nPluginManager = NPluginApi.getInstance().getNPluginManager();
         NBlockRegistry nBlockRegistry = nPluginManager.getNBlockRegistry();
         Preconditions.checkState(nBlockRegistry.contains(nResourceKey),
-                "Can't find NBlock with id %s!", nResourceKey);
+                "Can't find NBlock with getId %s!", nResourceKey);
 
         return nBlockRegistry.getNBlock(nResourceKey);
     }

@@ -1,9 +1,9 @@
-package ru.n08i40k.npluginapi.database;
+package ru.n08i40k.npluginapi.registry;
 
 import lombok.Getter;
 import lombok.NonNull;
-import ru.n08i40k.npluginapi.craft.NCraftRecipe;
-import ru.n08i40k.npluginapi.itemStack.NItemStack;
+import ru.n08i40k.npluginapi.custom.craft.NCraftRecipe;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
 import java.util.HashMap;

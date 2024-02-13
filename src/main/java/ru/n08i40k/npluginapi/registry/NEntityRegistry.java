@@ -1,8 +1,7 @@
-package ru.n08i40k.npluginapi.database;
+package ru.n08i40k.npluginapi.registry;
 
 import lombok.NonNull;
-import ru.n08i40k.npluginapi.block.NBlock;
-import ru.n08i40k.npluginapi.entity.NEntity;
+import ru.n08i40k.npluginapi.custom.entity.NEntity;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
 public class NEntityRegistry extends NRegistry<NEntity<?>> {

@@ -3,11 +3,8 @@ package ru.n08i40k.npluginapi.resource;
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.NonNull;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NItemStackRegistry;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 
@@ -50,7 +47,7 @@ public class NResourceKey {
 
         NPluginManager nPluginManager = NPluginApi.getInstance().getNPluginManager();
         Preconditions.checkState(nPluginManager.isNPluginRegistered(matcher.group(1)),
-                "Can't find NPlugin with id %s!", matcher.group(1));
+                "Can't find NPlugin with getId %s!", matcher.group(1));
 
         Preconditions.checkState(NResourceGroup.ALL_GROUPS.contains(matcher.group(2)),
                 "Broken NResourceGroup: %s", matcher.group(2));

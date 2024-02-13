@@ -7,11 +7,11 @@ import meteordevelopment.orbit.EventHandler;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NBlockRegistry;
-import ru.n08i40k.npluginapi.database.NCraftRecipeRegistry;
-import ru.n08i40k.npluginapi.database.NEntityRegistry;
+import ru.n08i40k.npluginapi.registry.NBlockRegistry;
+import ru.n08i40k.npluginapi.registry.NCraftRecipeRegistry;
+import ru.n08i40k.npluginapi.registry.NEntityRegistry;
 import ru.n08i40k.npluginapi.event.NPluginUnloadEvent;
-import ru.n08i40k.npluginapi.database.NItemStackRegistry;
+import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class NPluginManager {
         id = id.toLowerCase();
 
         Preconditions.checkArgument(!nPluginMap.containsKey(id),
-                String.format("%s plugin already registered!", id));
+                String.format("%s getPlugin already registered!", id));
 
         NPluginApi.getInstance().getSLF4JLogger().info("NPlugin {} is registering...", id);
 
@@ -65,7 +65,7 @@ public class NPluginManager {
     // UNREGISTER
     public void unregisterNPlugin(@NonNull NPlugin nPlugin) {
         Preconditions.checkArgument(nPluginMap.containsKey(nPlugin.getId()),
-                String.format("%s plugin doesn't registered!", nPlugin.getId()));
+                String.format("%s getPlugin doesn't registered!", nPlugin.getId()));
 
         nPlugin.unregister();
 
@@ -79,13 +79,13 @@ public class NPluginManager {
                 .filter(nPlugin -> nPlugin.getPlugin().equals(plugin))
                 .findFirst();
 
-        Preconditions.checkArgument(optionalNPlugin.isPresent(), "Cannot find NPlugin of %s plugin!", plugin.getName());
+        Preconditions.checkArgument(optionalNPlugin.isPresent(), "Cannot find NPlugin of %s getPlugin!", plugin.getName());
 
         return optionalNPlugin.get();
     }
 
     public NPlugin getNPlugin(@NonNull String id) {
-        Preconditions.checkArgument(nPluginMap.containsKey(id), "Cannot find NPlugin of %s id!", id);
+        Preconditions.checkArgument(nPluginMap.containsKey(id), "Cannot find NPlugin of %s getId!", id);
 
         return nPluginMap.get(id);
     }

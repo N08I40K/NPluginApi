@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.block;
+package ru.n08i40k.npluginapi.custom.block;
 
 import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTBlock;
@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.event.block.*;
-import ru.n08i40k.npluginapi.database.NItemStackRegistry;
+import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
 import ru.n08i40k.npluginapi.resource.NResourceGroup;
@@ -68,7 +68,7 @@ public abstract class NBlock implements INResourceKeyHolder {
         NItemStackRegistry itemStackDatabase = NPluginApi.getInstance().getNPluginManager().getNItemStackRegistry();
 
         Preconditions.checkState(itemStackDatabase.contains(NResourceKey.parse(drop)),
-                "Can't find NItemStack with id %s for NBlock with id %s!",
+                "Can't find NItemStack with getId %s for NBlock with getId %s!",
                 matcher.group(0),
                 nResourceKey);
 

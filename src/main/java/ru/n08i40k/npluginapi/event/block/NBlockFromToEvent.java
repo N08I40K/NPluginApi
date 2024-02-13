@@ -2,7 +2,7 @@ package ru.n08i40k.npluginapi.event.block;
 
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockFromToEvent;
-import ru.n08i40k.npluginapi.block.NBlock;
+import ru.n08i40k.npluginapi.custom.block.NBlock;
 
 public class NBlockFromToEvent extends NBlockEvent<BlockFromToEvent> {
 

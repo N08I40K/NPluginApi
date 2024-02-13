@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.craft;
+package ru.n08i40k.npluginapi.custom.craft;
 
 import lombok.Getter;
 import lombok.Setter;

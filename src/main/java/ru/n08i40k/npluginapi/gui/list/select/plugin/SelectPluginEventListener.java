@@ -26,7 +26,7 @@ public class SelectPluginEventListener implements Listener {
         NBTCompound nbtCompound = SelectRegistryEventListener.clickCheck(event);
         if (nbtCompound == null) return;
 
-        String pluginId = nbtCompound.getString("plugin-id");
+        String pluginId = nbtCompound.getString("getPlugin-getId");
         Preconditions.checkNotNull(pluginId);
 
         InventoryHolder inventoryHolder = null;

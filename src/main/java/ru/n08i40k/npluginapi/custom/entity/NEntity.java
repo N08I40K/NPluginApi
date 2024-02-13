@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.entity;
+package ru.n08i40k.npluginapi.custom.entity;
 
 import lombok.Getter;
 import lombok.NonNull;

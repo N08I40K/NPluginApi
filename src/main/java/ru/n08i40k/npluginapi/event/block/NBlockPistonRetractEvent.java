@@ -2,7 +2,7 @@ package ru.n08i40k.npluginapi.event.block;
 
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPistonRetractEvent;
-import ru.n08i40k.npluginapi.block.NBlock;
+import ru.n08i40k.npluginapi.custom.block.NBlock;
 
 public class NBlockPistonRetractEvent extends NBlockEvent<BlockPistonRetractEvent> {
 

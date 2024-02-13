@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.entity;
+package ru.n08i40k.npluginapi.custom.entity;
 
 import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTCompound;
@@ -7,7 +7,7 @@ import lombok.NonNull;
 import org.bukkit.entity.Entity;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NEntityRegistry;
+import ru.n08i40k.npluginapi.registry.NEntityRegistry;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
@@ -41,7 +41,7 @@ public class NEntityNBT {
         NPluginManager nPluginManager = NPluginApi.getInstance().getNPluginManager();
         NEntityRegistry nEntityRegistry = nPluginManager.getNEntityRegistry();
         Preconditions.checkState(nEntityRegistry.contains(nResourceKey),
-                "Can't find NEntity with id %s!", nResourceKey);
+                "Can't find NEntity with getId %s!", nResourceKey);
 
         return nEntityRegistry.getNEntity(nResourceKey);
     }

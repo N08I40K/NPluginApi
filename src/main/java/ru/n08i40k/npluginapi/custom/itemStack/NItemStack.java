@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.itemStack;
+package ru.n08i40k.npluginapi.custom.itemStack;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -6,8 +6,8 @@ import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.block.NBlock;
-import ru.n08i40k.npluginapi.database.NBlockRegistry;
+import ru.n08i40k.npluginapi.custom.block.NBlock;
+import ru.n08i40k.npluginapi.registry.NBlockRegistry;
 import ru.n08i40k.npluginapi.event.itemStack.*;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
@@ -89,5 +89,6 @@ public abstract class NItemStack implements INResourceKeyHolder {
     public void onMend              (NItemStackMendEvent event)             {}
     public void onHeld              (NItemStackHeldEvent event)             {}
     public void onConsume           (NItemStackConsumeEvent event)          {}
+    public void onCraft             (NItemStackCraftEvent event)            {}
     public void onRemoveFromWorld   (NItemStackRemoveFromWorldEvent event)  {}
 }

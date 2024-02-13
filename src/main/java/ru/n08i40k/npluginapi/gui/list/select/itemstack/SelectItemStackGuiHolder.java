@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NItemStackRegistry;
+import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 import ru.n08i40k.npluginapi.gui.list.select.plugin.SelectPluginGuiHolder;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;

@@ -6,12 +6,13 @@ import lombok.NonNull;
 import lombok.Setter;
 import meteordevelopment.orbit.ICancellable;
 import org.bukkit.Material;
+import org.bukkit.event.Cancellable;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.event.NPluginBusManager;
-import ru.n08i40k.npluginapi.itemStack.NItemStack;
-import ru.n08i40k.npluginapi.itemStack.NItemStackNBT;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStackNBT;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -61,5 +62,8 @@ public abstract class NItemStackEvent<T extends org.bukkit.event.Event> implemen
 
         if (!event.isCancelled())
             event.execute();
+
+        if (bukkitEvent instanceof Cancellable cancellableBukkitEvent)
+            cancellableBukkitEvent.setCancelled(event.isCancelled());
     }
 }

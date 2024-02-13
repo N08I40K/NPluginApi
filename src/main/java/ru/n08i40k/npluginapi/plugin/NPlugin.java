@@ -13,7 +13,6 @@ import javax.annotation.Nullable;
 public class NPlugin {
     private final Plugin plugin;
     private final String id;
-
     private final String viewName;
     private final Material icon;
 

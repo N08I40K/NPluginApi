@@ -2,7 +2,7 @@ package ru.n08i40k.npluginapi.event.itemStack;
 
 import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import org.bukkit.inventory.ItemStack;
-import ru.n08i40k.npluginapi.itemStack.NItemStack;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
 
 public class NItemStackRemoveFromWorldEvent extends NItemStackEvent<EntityRemoveFromWorldEvent> {
 

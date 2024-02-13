@@ -7,10 +7,11 @@ import lombok.NonNull;
 import lombok.Setter;
 import meteordevelopment.orbit.ICancellable;
 import org.bukkit.entity.Entity;
+import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.entity.NEntity;
-import ru.n08i40k.npluginapi.entity.NEntityNBT;
+import ru.n08i40k.npluginapi.custom.entity.NEntity;
+import ru.n08i40k.npluginapi.custom.entity.NEntityNBT;
 import ru.n08i40k.npluginapi.event.NPluginBusManager;
 
 import java.lang.reflect.InvocationTargetException;
@@ -68,5 +69,8 @@ public abstract class NEntityEvent<T extends org.bukkit.event.Event> implements 
 
         if (!event.isCancelled())
             event.execute();
+
+        if (bukkitEvent instanceof Cancellable cancellableBukkitEvent)
+            cancellableBukkitEvent.setCancelled(event.isCancelled());
     }
 }

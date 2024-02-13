@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.craft;
+package ru.n08i40k.npluginapi.custom.craft;
 
 import com.google.common.base.Preconditions;
 import lombok.Getter;
@@ -8,8 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.database.NItemStackRegistry;
-import ru.n08i40k.npluginapi.itemStack.NItemStack;
+import ru.n08i40k.npluginapi.event.craft.NCraftItemEvent;
+import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
+import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
 import ru.n08i40k.npluginapi.resource.NResourceGroup;
@@ -103,4 +104,6 @@ public class NCraftRecipe implements INResourceKeyHolder {
 
         registered = false;
     }
+
+    public void onCraftItem(NCraftItemEvent event) {}
 }

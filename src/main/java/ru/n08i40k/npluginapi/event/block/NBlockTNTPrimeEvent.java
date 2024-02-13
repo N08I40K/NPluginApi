@@ -2,7 +2,7 @@ package ru.n08i40k.npluginapi.event.block;
 
 import com.destroystokyo.paper.event.block.TNTPrimeEvent;
 import org.bukkit.block.Block;
-import ru.n08i40k.npluginapi.block.NBlock;
+import ru.n08i40k.npluginapi.custom.block.NBlock;
 
 public class NBlockTNTPrimeEvent extends NBlockEvent<TNTPrimeEvent> {
 

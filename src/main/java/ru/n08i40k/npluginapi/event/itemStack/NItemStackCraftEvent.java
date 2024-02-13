@@ -2,20 +2,19 @@ package ru.n08i40k.npluginapi.event.itemStack;
 
 import lombok.Getter;
 import lombok.NonNull;
-import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
 
 @Getter
 @NonNull
-public class NItemStackDamageEvent extends NItemStackEvent<PlayerItemDamageEvent> {
-
-    public NItemStackDamageEvent(PlayerItemDamageEvent bukkitEvent, ItemStack itemStack, NItemStack nItemStack) {
+public class NItemStackCraftEvent extends NItemStackEvent<CraftItemEvent> {
+    public NItemStackCraftEvent(CraftItemEvent bukkitEvent, ItemStack itemStack, NItemStack nItemStack) {
         super(bukkitEvent, itemStack, nItemStack);
     }
 
     @Override
     public void execute() {
-        nItemStack.onDamage(this);
+        nItemStack.onCraft(this);
     }
 }
