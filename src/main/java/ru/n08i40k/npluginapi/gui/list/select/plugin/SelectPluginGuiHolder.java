@@ -27,7 +27,8 @@ public class SelectPluginGuiHolder implements InventoryHolder {
         ENTITY,
         BLOCK,
         ITEMSTACK,
-        CRAFT_RECIPE
+        CRAFT_RECIPE,
+        ENCHANTMENT
     }
 
     private static final LocaleRequestBuilder localeRoot =
@@ -45,7 +46,6 @@ public class SelectPluginGuiHolder implements InventoryHolder {
 
     public SelectPluginGuiHolder(@Nullable Registry predefinedRegistry) {
         this.predefinedRegistry = predefinedRegistry;
-//        inventory = Bukkit.createInventory(this, InventoryType.CRAFTING);
         Map<String, NPlugin> nPluginMap = NPluginApi.getInstance().getNPluginManager().getNPluginMap();
         int inventoryRows = Math.floorDiv(nPluginMap.size(), 9) + (Math.floorMod(nPluginMap.size(), 9) == 0 ? 0 : 1);
 
@@ -68,19 +68,22 @@ public class SelectPluginGuiHolder implements InventoryHolder {
                     int blockCount = getCount(nPluginManager.getNBlockRegistry(), nPlugin);
                     int itemStackCount = getCount(nPluginManager.getNItemStackRegistry(), nPlugin);
                     int craftRecipeCount = getCount(nPluginManager.getNCraftRecipeRegistry(), nPlugin);
+                    int enchantmentCount = getCount(nPluginManager.getNEnchantmentRegistry(), nPlugin);
 
                     /*
-                     * Количество сущностей: %entity_count%
-                     * Количество блоков: %block_count%
                      * Количество предметов: %itemstack_count%
                      * Количество крафтов: %craft_recipe_count%
+                     * Количество зачарований: %enchantment_count%
+                     * Количество сущностей: %entity_count%
+                     * Количество блоков: %block_count%
                      * */
                     List<Component> lore = localeRoot.get("item.description")
                             .format(Map.of(
                                     "entity_count", entityCount,
                                     "block_count", blockCount,
                                     "itemstack_count", itemStackCount,
-                                    "craft_recipe_count", craftRecipeCount
+                                    "craft_recipe_count", craftRecipeCount,
+                                    "enchantment_count", enchantmentCount
                             )).getMultiple().getC();
                     iconMeta.lore(lore);
                     icon.setItemMeta(iconMeta);

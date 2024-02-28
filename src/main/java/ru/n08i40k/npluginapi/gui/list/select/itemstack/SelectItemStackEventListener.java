@@ -9,11 +9,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.custom.craft.NCraftRecipe;
-import ru.n08i40k.npluginapi.gui.list.select.registry.SelectRegistryEventListener;
-import ru.n08i40k.npluginapi.gui.list.view.ViewCraftRecipeGuiHolder;
 import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
 import ru.n08i40k.npluginapi.custom.itemStack.NItemStackNBT;
-import ru.n08i40k.npluginapi.resource.NResourceGroup;
+import ru.n08i40k.npluginapi.gui.list.select.registry.SelectRegistryEventListener;
+import ru.n08i40k.npluginapi.gui.list.view.ViewCraftRecipeGuiHolder;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
 public class SelectItemStackEventListener implements Listener {
@@ -32,9 +31,8 @@ public class SelectItemStackEventListener implements Listener {
 
         NItemStack nItemStack = NItemStackNBT.getNItemStack(nbtCompound);
 
-        Preconditions.checkNotNull(nItemStack.getNResourceKey());
-        NResourceKey nResourceKey =
-                new NResourceKey(nItemStack.getNPlugin(), NResourceGroup.CRAFT, nItemStack.getNResourceKey().getObjectId());
+        NResourceKey nResourceKey = nItemStack.getNResourceKey();
+        Preconditions.checkNotNull(nResourceKey);
 
         NCraftRecipe nCraftRecipe = NPluginApi.getInstance().getNPluginManager().getNCraftRecipeRegistry().getData().get(nResourceKey);
         if (nCraftRecipe == null)

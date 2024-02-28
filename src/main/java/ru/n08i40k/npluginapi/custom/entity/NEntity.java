@@ -6,11 +6,11 @@ import org.bukkit.entity.Entity;
 import ru.n08i40k.npluginapi.event.entity.*;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
-import ru.n08i40k.npluginapi.resource.NResourceGroup;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
 @Getter
 @NonNull
+@SuppressWarnings("unused")
 public abstract class NEntity<T extends Entity> implements INResourceKeyHolder {
     private final NPlugin nPlugin;
     private final NResourceKey nResourceKey;
@@ -18,7 +18,7 @@ public abstract class NEntity<T extends Entity> implements INResourceKeyHolder {
 
     public NEntity(@NonNull NPlugin nPlugin, @NonNull String id, Class<T> klass) {
         this.nPlugin = nPlugin;
-        this.nResourceKey = new NResourceKey(nPlugin, NResourceGroup.ENTITY, id);
+        this.nResourceKey = new NResourceKey(nPlugin, id);
         this.klass = klass;
     }
 

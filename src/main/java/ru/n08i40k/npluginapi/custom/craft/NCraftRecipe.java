@@ -8,12 +8,11 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.event.craft.NCraftItemEvent;
-import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
+import ru.n08i40k.npluginapi.event.craft.NCraftItemEvent;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
+import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
-import ru.n08i40k.npluginapi.resource.NResourceGroup;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
 import java.util.HashMap;
@@ -22,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Getter
+@SuppressWarnings("unused")
 public class NCraftRecipe implements INResourceKeyHolder {
     @NonNull
     private final NCraftRecipeEntry entry;
@@ -49,14 +49,14 @@ public class NCraftRecipe implements INResourceKeyHolder {
         this.entry = entry;
         this.nItemStack = nItemStack;
 
-        nResourceKey = new NResourceKey(nPlugin, NResourceGroup.CRAFT, id);
+        nResourceKey = new NResourceKey(nPlugin, id);
     }
 
     private Map<Character, ItemStack> getIngredients() {
         Map<Character, String> source = entry.getIngredients();
         Map<Character, ItemStack> result = new HashMap<>();
 
-        Pattern pattern = Pattern.compile("[a-z0-9]+:" + NResourceGroup.ITEM + "/[a-z0-9_\\-]+");
+        Pattern pattern = Pattern.compile("[a-z0-9]+:[a-z0-9_\\-]+");
 
         source.forEach((key, value) -> {
             Matcher matcher = pattern.matcher(value);

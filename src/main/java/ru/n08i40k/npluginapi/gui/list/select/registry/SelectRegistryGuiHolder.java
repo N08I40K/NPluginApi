@@ -63,16 +63,20 @@ public class SelectRegistryGuiHolder implements InventoryHolder {
 
         ItemStack icon;
 
+        icon = getIcon(nPluginManager.getNItemStackRegistry(), nPlugin, Registry.ITEMSTACK, Material.FEATHER);
+        if (icon != null) inventory.addItem(icon);
+
+        icon = getIcon(nPluginManager.getNCraftRecipeRegistry(), nPlugin, Registry.CRAFT_RECIPE, Material.BOOK);
+        if (icon != null) inventory.addItem(icon);
+
+        icon = getIcon(nPluginManager.getNEnchantmentRegistry(), nPlugin, Registry.ENCHANTMENT, Material.ENCHANTED_BOOK);
+        if (icon != null) inventory.addItem(icon);
+
         icon = getIcon(nPluginManager.getNEntityRegistry(), nPlugin, Registry.ENTITY, Material.VILLAGER_SPAWN_EGG);
         if (icon != null) inventory.addItem(icon);
 
         icon = getIcon(nPluginManager.getNBlockRegistry(), nPlugin, Registry.BLOCK, Material.BEDROCK);
         if (icon != null) inventory.addItem(icon);
 
-        icon = getIcon(nPluginManager.getNItemStackRegistry(), nPlugin, Registry.ITEMSTACK, Material.FEATHER);
-        if (icon != null) inventory.addItem(icon);
-
-        icon = getIcon(nPluginManager.getNCraftRecipeRegistry(), nPlugin, Registry.CRAFT_RECIPE, Material.BOOK);
-        if (icon != null) inventory.addItem(icon);
     }
 }

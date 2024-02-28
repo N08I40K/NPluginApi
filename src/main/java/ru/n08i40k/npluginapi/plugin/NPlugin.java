@@ -29,6 +29,7 @@ public class NPlugin {
 
         nPluginManager.getNItemStackRegistry().removeAll(this);
         nPluginManager.getNCraftRecipeRegistry().removeAll(this);
+        nPluginManager.getNEnchantmentRegistry().removeAll(this);
         nPluginManager.getNEntityRegistry().removeAll(this);
         nPluginManager.getNBlockRegistry().removeAll(this);
     }

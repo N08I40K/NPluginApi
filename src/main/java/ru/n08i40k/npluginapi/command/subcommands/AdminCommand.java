@@ -4,6 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.command.SubCommand;
+import ru.n08i40k.npluginapi.command.subcommands.admin.EnchantCommand;
 import ru.n08i40k.npluginapi.command.subcommands.admin.LocaleCommand;
 
 public class AdminCommand extends SubCommand {
@@ -11,6 +12,7 @@ public class AdminCommand extends SubCommand {
         super(parent);
 
         subcommands.put(new LocaleCommand(this));
+        subcommands.put(new EnchantCommand(this));
     }
 
     @Override

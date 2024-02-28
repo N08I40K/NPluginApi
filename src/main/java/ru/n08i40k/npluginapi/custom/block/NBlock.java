@@ -12,10 +12,9 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.event.block.*;
-import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
+import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
-import ru.n08i40k.npluginapi.resource.NResourceGroup;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
 import java.util.regex.Matcher;
@@ -23,6 +22,7 @@ import java.util.regex.Pattern;
 
 @Getter
 @NonNull
+@SuppressWarnings("unused")
 public abstract class NBlock implements INResourceKeyHolder {
     private final NPlugin nPlugin;
     private final NResourceKey nResourceKey;
@@ -34,7 +34,7 @@ public abstract class NBlock implements INResourceKeyHolder {
 
     public NBlock(@NonNull NPlugin nPlugin, @NonNull String id, Material material, @Nullable String drop) {
         this.nPlugin = nPlugin;
-        this.nResourceKey = new NResourceKey(nPlugin, NResourceGroup.BLOCK, id);
+        this.nResourceKey = new NResourceKey(nPlugin, id);
         this.material = material;
 
         this.drop = drop;
@@ -53,7 +53,7 @@ public abstract class NBlock implements INResourceKeyHolder {
         if (drop == null)
             return null;
 
-        Pattern pattern = Pattern.compile("[a-z0-9]+:" + NResourceGroup.ITEM + "/[a-z0-9_-]+");
+        Pattern pattern = Pattern.compile("[a-z0-9]+:[a-z0-9_-]+");
         Matcher matcher = pattern.matcher(drop);
 
         try {

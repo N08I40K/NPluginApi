@@ -1,5 +1,7 @@
 package ru.n08i40k.npluginapi;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import lombok.Getter;
 import meteordevelopment.orbit.IEventBus;
 import org.bukkit.plugin.PluginManager;
@@ -14,6 +16,9 @@ import ru.n08i40k.npluginapi.listener.NBlockEventListener;
 import ru.n08i40k.npluginapi.listener.NEntityEventListener;
 import ru.n08i40k.npluginapi.listener.NItemStackEventListener;
 import ru.n08i40k.npluginapi.listener.NSharedEventListener;
+import ru.n08i40k.npluginapi.listener.protocollib.SetCreativeSlotPacketListener;
+import ru.n08i40k.npluginapi.listener.protocollib.SetSlotPacketListener;
+import ru.n08i40k.npluginapi.listener.protocollib.WindowItemsPacketListener;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginlocale.Locale;
 
@@ -48,9 +53,9 @@ public final class NPluginApi extends JavaPlugin {
         // Register command
         getServer().getCommandMap().registerAll(PLUGIN_NAME_LOWER, List.of(new MainCommand()));
 
-        // events
         PluginManager pluginManager = getServer().getPluginManager();
 
+        // N<> events
         pluginManager.registerEvents(new NBlockEventListener(), this);
         pluginManager.registerEvents(new NItemStackEventListener(), this);
         pluginManager.registerEvents(new NEntityEventListener(), this);
@@ -61,6 +66,12 @@ public final class NPluginApi extends JavaPlugin {
         pluginManager.registerEvents(new SelectRegistryEventListener(), this);
         pluginManager.registerEvents(new SelectItemStackEventListener(), this);
         pluginManager.registerEvents(new ViewCraftRecipeEventListener(), this);
+
+        // protocol lib events
+        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+        protocolManager.addPacketListener(new SetCreativeSlotPacketListener(this));
+        protocolManager.addPacketListener(new SetSlotPacketListener(this));
+        protocolManager.addPacketListener(new WindowItemsPacketListener(this));
     }
 
     @Override

@@ -7,14 +7,14 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.custom.block.NBlock;
-import ru.n08i40k.npluginapi.registry.NBlockRegistry;
 import ru.n08i40k.npluginapi.event.itemStack.*;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
+import ru.n08i40k.npluginapi.registry.NBlockRegistry;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
-import ru.n08i40k.npluginapi.resource.NResourceGroup;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
+@SuppressWarnings("unused")
 public abstract class NItemStack implements INResourceKeyHolder {
     @NonNull
     private final ItemStack itemStack;
@@ -42,7 +42,7 @@ public abstract class NItemStack implements INResourceKeyHolder {
         this.itemStack = itemStack;
         this.nPlugin = nPlugin;
 
-        this.nResourceKey = new NResourceKey(nPlugin, NResourceGroup.ITEM, id);
+        this.nResourceKey = new NResourceKey(nPlugin, id);
         this.isPlaceable = isPlaceable && itemStack.getType().isBlock();
     }
 
@@ -75,7 +75,6 @@ public abstract class NItemStack implements INResourceKeyHolder {
         }
 
         assert nResourceKey != null;
-        NResourceKey nResourceKey = new NResourceKey(nPlugin, NResourceGroup.BLOCK, this.nResourceKey.getObjectId());
 
         NPluginManager nPluginManager = NPluginApi.getInstance().getNPluginManager();
         NBlockRegistry nBlockRegistry = nPluginManager.getNBlockRegistry();

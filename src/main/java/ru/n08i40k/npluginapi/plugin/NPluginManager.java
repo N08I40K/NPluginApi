@@ -7,32 +7,32 @@ import meteordevelopment.orbit.EventHandler;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.registry.NBlockRegistry;
-import ru.n08i40k.npluginapi.registry.NCraftRecipeRegistry;
-import ru.n08i40k.npluginapi.registry.NEntityRegistry;
+import ru.n08i40k.npluginapi.registry.*;
 import ru.n08i40k.npluginapi.event.NPluginUnloadEvent;
-import ru.n08i40k.npluginapi.registry.NItemStackRegistry;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @Getter
 @NonNull
 public class NPluginManager {
     private final Map<String, NPlugin> nPluginMap;
 
-    private final NCraftRecipeRegistry nCraftRecipeRegistry;
     private final NItemStackRegistry nItemStackRegistry;
+    private final NCraftRecipeRegistry nCraftRecipeRegistry;
+    private final NEnchantmentRegistry nEnchantmentRegistry;
     private final NEntityRegistry nEntityRegistry;
     private final NBlockRegistry nBlockRegistry;
 
     public NPluginManager() {
         nPluginMap = new HashMap<>();
 
-        nCraftRecipeRegistry = new NCraftRecipeRegistry();
         nItemStackRegistry = new NItemStackRegistry();
+        nCraftRecipeRegistry = new NCraftRecipeRegistry();
+        nEnchantmentRegistry = new NEnchantmentRegistry();
         nEntityRegistry = new NEntityRegistry();
         nBlockRegistry = new NBlockRegistry();
     }

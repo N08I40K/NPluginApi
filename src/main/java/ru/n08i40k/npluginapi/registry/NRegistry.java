@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("UnusedReturnValue")
 @Getter
 public abstract class NRegistry<K extends INResourceKeyHolder> {
     protected final Map<NResourceKey, K> data;
@@ -83,7 +84,7 @@ public abstract class NRegistry<K extends INResourceKeyHolder> {
 
     protected K getElement(@NonNull NResourceKey nResourceKey) {
         Preconditions.checkState(contains(nResourceKey),
-                "Cannot find %s with getId %s", getChildExtendClassName(), nResourceKey);
+                "Cannot find %s with id %s", getChildExtendClassName(), nResourceKey);
 
         return data.get(nResourceKey);
     }
