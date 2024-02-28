@@ -38,7 +38,7 @@ public class SelectRegistryGuiHolder implements InventoryHolder {
         ItemStack itemStack = new ItemStack(material);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        LocaleRequestBuilder registryRoot = localeRoot.extend(registry.name().toLowerCase());
+        LocaleRequestBuilder registryRoot = localeRoot.extend(registry.localeTag);
 
         itemMeta.displayName(registryRoot.get("view_name").getSingle().getC());
         itemMeta.lore(List.of(registryRoot.get("description", count).getSingle().getC()));

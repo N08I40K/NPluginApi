@@ -82,6 +82,7 @@ public abstract class NRegistry<K extends INResourceKeyHolder> {
         return elements;
     }
 
+    @NonNull
     protected K getElement(@NonNull NResourceKey nResourceKey) {
         Preconditions.checkState(contains(nResourceKey),
                 "Cannot find %s with id %s", getChildExtendClassName(), nResourceKey);

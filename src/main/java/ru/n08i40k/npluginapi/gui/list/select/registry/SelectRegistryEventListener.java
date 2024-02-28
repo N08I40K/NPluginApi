@@ -3,6 +3,7 @@ package ru.n08i40k.npluginapi.gui.list.select.registry;
 import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTItem;
+import lombok.NonNull;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,10 +11,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import ru.n08i40k.npluginapi.gui.list.select.itemstack.SelectItemStackGuiHolder;
+import ru.n08i40k.npluginapi.gui.list.select.craftRecipe.SelectCraftRecipeGuiHolder;
+import ru.n08i40k.npluginapi.gui.list.select.enchantment.SelectEnchantmentGuiHolder;
+import ru.n08i40k.npluginapi.gui.list.select.itemStack.SelectItemStackGuiHolder;
 import ru.n08i40k.npluginapi.gui.list.select.plugin.SelectPluginGuiHolder.Registry;
 
 public class SelectRegistryEventListener implements Listener {
@@ -35,19 +39,21 @@ public class SelectRegistryEventListener implements Listener {
 
         Registry registry = Registry.valueOf(registryName);
 
-        InventoryHolder inventoryHolder = null;
+        event.getWhoClicked().openInventory(getInventory(holder, registry));
+    }
+
+    @NonNull
+    private static Inventory getInventory(SelectRegistryGuiHolder holder, Registry registry) {
+        InventoryHolder inventoryHolder;
 
         switch (registry) {
-            case ITEMSTACK -> {
-                inventoryHolder = new SelectItemStackGuiHolder(holder.getPluginId());
-            }
-            default -> {
-                // unimplemented
-            }
+            case ITEMSTACK -> inventoryHolder = new SelectItemStackGuiHolder(holder.getPluginId());
+            case CRAFT_RECIPE -> inventoryHolder = new SelectCraftRecipeGuiHolder(holder.getPluginId());
+            case ENCHANTMENT -> inventoryHolder = new SelectEnchantmentGuiHolder(holder.getPluginId());
+            default -> throw new RuntimeException("Behaviour for registry " + registry.name() + " not implemented!");
         }
 
-        if (inventoryHolder != null)
-            event.getWhoClicked().openInventory(inventoryHolder.getInventory());
+        return inventoryHolder.getInventory();
     }
 
     @Nullable
@@ -69,9 +75,6 @@ public class SelectRegistryEventListener implements Listener {
 
         NBTItem nbtItem = new NBTItem(itemStack);
 
-        NBTCompound nbtCompound = nbtItem.getCompound("nplugin-api");
-        Preconditions.checkNotNull(nbtCompound);
-        return nbtCompound;
+        return nbtItem.getCompound("nplugin-api");
     }
-
 }

@@ -1,4 +1,4 @@
-package ru.n08i40k.npluginapi.gui.list.select.itemstack;
+package ru.n08i40k.npluginapi.gui.list.select.itemStack;
 
 import com.google.common.base.Preconditions;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 public class SelectItemStackGuiHolder implements InventoryHolder {
     LocaleRequestBuilder localeRoot =
-            new LocaleRequestBuilder(null, "gui.list.select_registry.itemstack");
+            new LocaleRequestBuilder(null, "gui.list.select_registry.itemStack");
 
     private final Inventory inventory;
     private final String pluginId;

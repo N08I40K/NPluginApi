@@ -1,7 +1,9 @@
 package ru.n08i40k.npluginapi.custom.enchantment;
 
 import com.google.common.base.Preconditions;
+import de.tr7zw.nbtapi.NBTCompoundList;
 import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTListCompound;
 import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import lombok.NonNull;
 import net.kyori.adventure.text.Component;
@@ -68,27 +70,37 @@ public class NEnchantmentAccessor {
 
         Enchantment enchantment = nEnchantment.getEnchantment();
 
-        if (itemStack.getType() != Material.ENCHANTED_BOOK && itemStack.getType() != Material.BOOK) {
-            if (!enchantment.getItemTarget().includes(itemStack))
-                return;
+        if (itemStack.getType() == Material.ENCHANTED_BOOK) {
+            NBTItem nbtItem = new NBTItem(itemStack);
 
-            if (!enchantment.canEnchantItem(itemStack))
-                return;
+            if (!nbtItem.hasTag("StoredEnchantments"))
+                nbtItem.addCompound("StoredEnchantments");
+            NBTCompoundList nbtCompoundList = nbtItem.getCompoundList("StoredEnchantments");
 
-            if (itemStack.getEnchantments().keySet().stream()
-                    .anyMatch(enchantment1 ->
-                            enchantment1.conflictsWith(enchantment) || enchantment.conflictsWith(enchantment1)))
-                return;
+            NBTListCompound nbtListCompound = nbtCompoundList.addCompound();
+            nbtListCompound.setString("id", nEnchantment.getNResourceKey().toString());
+            nbtListCompound.setInteger("lvl", level);
+
+            itemStack.setItemMeta(nbtItem.getItem().getItemMeta());
+
+            return;
         }
 
-        NEnchantedLore.clearLore(itemStack);
+        if (!enchantment.getItemTarget().includes(itemStack))
+            return;
+
+        if (!enchantment.canEnchantItem(itemStack))
+            return;
+
+        if (itemStack.getEnchantments().keySet().stream()
+                .anyMatch(enchantment1 ->
+                        enchantment1.conflictsWith(enchantment) || enchantment.conflictsWith(enchantment1)))
+            return;
 
         if (unsafe)
             itemStack.addUnsafeEnchantment(enchantment, level);
         else
             itemStack.addEnchantment(enchantment, level);
-
-        NEnchantedLore.setLore(itemStack);
     }
 
     public static void removeEnchantment(@NonNull ItemStack itemStack, @NonNull NEnchantment nEnchantment) {

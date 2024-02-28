@@ -24,11 +24,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 public class SelectPluginGuiHolder implements InventoryHolder {
     public enum Registry {
-        ENTITY,
-        BLOCK,
-        ITEMSTACK,
-        CRAFT_RECIPE,
-        ENCHANTMENT
+        ENTITY("entity"),
+        BLOCK("block"),
+        ITEMSTACK("itemStack"),
+        CRAFT_RECIPE("craftRecipe"),
+        ENCHANTMENT("enchantment");
+
+        public final String localeTag;
+        Registry(String localeTag) {
+            this.localeTag = localeTag;
+        }
     }
 
     private static final LocaleRequestBuilder localeRoot =
@@ -64,12 +69,6 @@ public class SelectPluginGuiHolder implements InventoryHolder {
                     ItemMeta iconMeta = icon.getItemMeta();
                     iconMeta.displayName(NColorUtils.translate(NColorUtils.parseGradientTags(nPlugin.getViewName()), false));
 
-                    int entityCount = getCount(nPluginManager.getNEntityRegistry(), nPlugin);
-                    int blockCount = getCount(nPluginManager.getNBlockRegistry(), nPlugin);
-                    int itemStackCount = getCount(nPluginManager.getNItemStackRegistry(), nPlugin);
-                    int craftRecipeCount = getCount(nPluginManager.getNCraftRecipeRegistry(), nPlugin);
-                    int enchantmentCount = getCount(nPluginManager.getNEnchantmentRegistry(), nPlugin);
-
                     /*
                      * Количество предметов: %itemstack_count%
                      * Количество крафтов: %craft_recipe_count%
@@ -79,17 +78,17 @@ public class SelectPluginGuiHolder implements InventoryHolder {
                      * */
                     List<Component> lore = localeRoot.get("item.description")
                             .format(Map.of(
-                                    "entity_count", entityCount,
-                                    "block_count", blockCount,
-                                    "itemstack_count", itemStackCount,
-                                    "craft_recipe_count", craftRecipeCount,
-                                    "enchantment_count", enchantmentCount
+                                    "entity_count", getCount(nPluginManager.getNEntityRegistry(), nPlugin),
+                                    "block_count", getCount(nPluginManager.getNBlockRegistry(), nPlugin),
+                                    "itemstack_count", getCount(nPluginManager.getNItemStackRegistry(), nPlugin),
+                                    "craft_recipe_count", getCount(nPluginManager.getNCraftRecipeRegistry(), nPlugin),
+                                    "enchantment_count", getCount(nPluginManager.getNEnchantmentRegistry(), nPlugin)
                             )).getMultiple().getC();
                     iconMeta.lore(lore);
                     icon.setItemMeta(iconMeta);
 
                     NBTItem nbtIcon = new NBTItem(icon);
-                    nbtIcon.addCompound("nplugin-api").setString("getPlugin-getId", nPlugin.getId());
+                    nbtIcon.addCompound("nplugin-api").setString("nPluginId", nPlugin.getId());
 
                     inventory.setItem(counter.getAndIncrement(), nbtIcon.getItem());
                 });

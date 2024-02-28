@@ -8,7 +8,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.n08i40k.npluginapi.command.MainCommand;
 import ru.n08i40k.npluginapi.event.NPluginBusManager;
-import ru.n08i40k.npluginapi.gui.list.select.itemstack.SelectItemStackEventListener;
+import ru.n08i40k.npluginapi.gui.list.select.craftRecipe.SelectCraftRecipeEventListener;
+import ru.n08i40k.npluginapi.gui.list.select.enchantment.SelectEnchantmentEventListener;
+import ru.n08i40k.npluginapi.gui.list.select.itemStack.SelectItemStackEventListener;
 import ru.n08i40k.npluginapi.gui.list.select.plugin.SelectPluginEventListener;
 import ru.n08i40k.npluginapi.gui.list.select.registry.SelectRegistryEventListener;
 import ru.n08i40k.npluginapi.gui.list.view.ViewCraftRecipeEventListener;
@@ -65,7 +67,11 @@ public final class NPluginApi extends JavaPlugin {
         // gui events
         pluginManager.registerEvents(new SelectPluginEventListener(), this);
         pluginManager.registerEvents(new SelectRegistryEventListener(), this);
+
         pluginManager.registerEvents(new SelectItemStackEventListener(), this);
+        pluginManager.registerEvents(new SelectCraftRecipeEventListener(), this);
+        pluginManager.registerEvents(new SelectEnchantmentEventListener(), this);
+
         pluginManager.registerEvents(new ViewCraftRecipeEventListener(), this);
 
         // protocol lib events

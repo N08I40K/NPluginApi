@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.plugin.Plugin;
 import ru.n08i40k.npluginapi.NPluginApi;
-import ru.n08i40k.npluginapi.gui.list.select.itemstack.SelectItemStackGuiHolder;
+import ru.n08i40k.npluginapi.gui.list.select.itemStack.SelectItemStackGuiHolder;
 
 public class ViewCraftRecipeEventListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
