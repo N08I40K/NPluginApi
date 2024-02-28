@@ -18,6 +18,7 @@ import ru.n08i40k.npluginapi.listener.NItemStackEventListener;
 import ru.n08i40k.npluginapi.listener.NSharedEventListener;
 import ru.n08i40k.npluginapi.listener.protocollib.SetCreativeSlotPacketListener;
 import ru.n08i40k.npluginapi.listener.protocollib.SetSlotPacketListener;
+import ru.n08i40k.npluginapi.listener.protocollib.TradeListPacketListener;
 import ru.n08i40k.npluginapi.listener.protocollib.WindowItemsPacketListener;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginlocale.Locale;
@@ -71,6 +72,7 @@ public final class NPluginApi extends JavaPlugin {
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
         protocolManager.addPacketListener(new SetCreativeSlotPacketListener(this));
         protocolManager.addPacketListener(new SetSlotPacketListener(this));
+        protocolManager.addPacketListener(new TradeListPacketListener(this));
         protocolManager.addPacketListener(new WindowItemsPacketListener(this));
     }
 

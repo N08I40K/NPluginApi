@@ -18,6 +18,8 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Optional;
 
+import static ru.n08i40k.npluginapi.custom.enchantment.NEnchantmentAccessor.getEnchantments;
+
 @Getter
 @NonNull
 @SuppressWarnings("unused")
@@ -46,7 +48,7 @@ public class NEnchantment implements INResourceKeyHolder {
     }
 
     public Optional<Integer> getLevel(@NonNull ItemStack itemStack) {
-        Integer level = itemStack.getEnchantments().get(enchantment);
+        Integer level = getEnchantments(itemStack).get(enchantment);
         return level == null ? Optional.empty() : Optional.of(level);
     }
 

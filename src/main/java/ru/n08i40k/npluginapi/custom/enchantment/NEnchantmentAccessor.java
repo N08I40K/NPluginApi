@@ -1,10 +1,13 @@
 package ru.n08i40k.npluginapi.custom.enchantment;
 
 import com.google.common.base.Preconditions;
+import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import lombok.NonNull;
 import net.kyori.adventure.text.Component;
 import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,6 +21,28 @@ import java.util.*;
 
 @SuppressWarnings("unused")
 public class NEnchantmentAccessor {
+    public static Map<Enchantment, Integer> getEnchantments(@NonNull ItemStack itemStack) {
+        if (!itemStack.getEnchantments().isEmpty())
+            return itemStack.getEnchantments();
+
+        NBTItem nbtItem = new NBTItem(itemStack);
+        if (!nbtItem.hasTag("StoredEnchantments"))
+            return Map.of();
+
+        Map<Enchantment, Integer> enchantments = new HashMap<>();
+        for (ReadWriteNBT nbtEnchantment : nbtItem.getCompoundList("StoredEnchantments")) {
+            String[] enchantmentId = nbtEnchantment.getString("id").split(":");
+            Integer enchantmentLevel = nbtEnchantment.getInteger("lvl");
+
+            @SuppressWarnings("deprecation")
+            Enchantment enchantment = Enchantment.getByKey(new NamespacedKey(enchantmentId[0], enchantmentId[1]));
+
+            enchantments.put(enchantment, enchantmentLevel);
+        }
+
+        return enchantments;
+    }
+
     @NonNull
     public static Map<NEnchantment, Integer> getNEnchantments(@NonNull ItemStack itemStack) {
         Map<NEnchantment, Integer> enchantments = new HashMap<>();
@@ -25,10 +50,14 @@ public class NEnchantmentAccessor {
         Collection<NEnchantment> nEnchantments =
                 NPluginApi.getInstance().getNPluginManager().getNEnchantmentRegistry().getData().values();
 
-        for (NEnchantment nEnchantment : nEnchantments)
-            nEnchantment
-                    .getLevel(itemStack)
-                    .ifPresent(level -> enchantments.put(nEnchantment, level));
+        Map<Enchantment, Integer> itemStackEnchantments = getEnchantments(itemStack);
+
+        for (NEnchantment nEnchantment : nEnchantments) {
+            Enchantment enchantment = nEnchantment.getEnchantment();
+
+            if (itemStackEnchantments.containsKey(enchantment))
+                enchantments.put(nEnchantment, itemStackEnchantments.get(enchantment));
+        }
 
         return enchantments;
     }
