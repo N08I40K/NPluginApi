@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.IRegistry;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_16_R3.enchantments.CraftEnchantment;
 import org.bukkit.enchantments.Enchantment;
@@ -72,6 +73,8 @@ public class NEnchantment implements INResourceKeyHolder {
     }
 
     public void unregister() {
+        if (Bukkit.isStopping())
+            return;
         throw new RuntimeException(
                 MessageFormatter.format(
                         "Can't unregister {} NEnchantment from {} NPlugin because it's NMS enchantment, and it can't be unregistered!",
