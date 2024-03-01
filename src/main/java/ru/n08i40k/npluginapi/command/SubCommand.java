@@ -79,7 +79,7 @@ public abstract class SubCommand extends PluginUse {
             return ImmutableList.of();
 
         if (args.length == 1)
-            return getAutocompletion(args[0], subcommands.keySet());
+            return getSubCommandAutoCompletion(sender, args[0]);
 
         if (subcommands.containsKey(args[0]))
             return subcommands.get(args[0]).tryTabComplete(sender, alias, Arrays.copyOfRange(args, 1, args.length));
@@ -88,7 +88,15 @@ public abstract class SubCommand extends PluginUse {
     }
 
     @NotNull
-    protected static List<String> getAutocompletion(@NotNull String arg, @NotNull Set<String> variants) {
+    private List<String> getSubCommandAutoCompletion(@NotNull CommandSender sender, @NotNull String arg) {
+        List<String> autoCompletion = getAutoCompletion(arg, subcommands.keySet());
+        autoCompletion.removeIf(subCommand -> !permissionBuilder.has(sender, subCommand));
+
+        return autoCompletion;
+    }
+
+    @NotNull
+    protected static List<String> getAutoCompletion(@NotNull String arg, @NotNull Set<String> variants) {
         if (arg.isEmpty()) {
             return new ArrayList<>(variants);
         }

@@ -20,16 +20,28 @@ public class PermissionBuilder {
     }
 
     public String get(@Nullable String part) {
-        if (parent != null)
-            return parent.get(part);
+        StringBuilder permissionBuilder = new StringBuilder();
 
-        return part != null ?
-                currentPermission + "." + part :
-                currentPermission;
+        if (parent != null)
+            permissionBuilder.append(parent.get(null));
+
+        if (currentPermission != null) {
+            if (!permissionBuilder.isEmpty())
+                permissionBuilder.append(".");
+            permissionBuilder.append(currentPermission);
+        }
+
+        if (part != null) {
+            if (!permissionBuilder.isEmpty())
+                permissionBuilder.append(".");
+            permissionBuilder.append(part);
+        }
+
+        return permissionBuilder.toString();
     }
 
     public PermissionBuilder extend(String appendPermission) {
-        return new PermissionBuilder(this, appendPermission);
+        return PermissionBuilder.of(this, appendPermission);
     }
 
     public boolean has(CommandSender sender) {
@@ -39,6 +51,7 @@ public class PermissionBuilder {
     public boolean has(CommandSender sender, @Nullable String append) {
         if (!(sender instanceof Player)) return true;
         if (sender.isOp()) return true;
+
 
         return sender.hasPermission(get(append));
     }

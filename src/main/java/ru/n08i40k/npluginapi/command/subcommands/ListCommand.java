@@ -70,7 +70,7 @@ public class ListCommand extends SubCommand {
     @Override
     public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) {
         if (args.length <= 1)
-            return getAutocompletion(args[0], acceptableRegistries(sender));
+            return getAutoCompletion(args[0], acceptableRegistries(sender));
         return ImmutableList.of();
     }
 }

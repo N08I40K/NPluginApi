@@ -96,7 +96,7 @@ public class EnchantCommand extends SubCommand {
                     .map(nEnchantment -> nEnchantment.getNResourceKey().toString())
                     .collect(Collectors.toSet());
 
-            return getAutocompletion(args[0], enchantments);
+            return getAutoCompletion(args[0], enchantments);
         }
         return List.of();
     }
