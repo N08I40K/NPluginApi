@@ -3,6 +3,7 @@ package ru.n08i40k.npluginapi.gui.list.select.plugin;
 import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTCompound;
 import lombok.NonNull;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -34,7 +35,7 @@ public class SelectPluginEventListener implements Listener {
         Preconditions.checkNotNull(pluginId);
 
         Inventory inventory = holder.getPredefinedRegistry() == null ?
-                new SelectRegistryGuiHolder(pluginId).getInventory() :
+                new SelectRegistryGuiHolder((Player) event.getWhoClicked(), pluginId).getInventory() :
                 getInventory(pluginId, holder.getPredefinedRegistry());
 
         event.getWhoClicked().openInventory(inventory);

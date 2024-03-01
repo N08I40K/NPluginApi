@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginlocale.LocaleRequestBuilder;
-import ru.n08i40k.npluginapi.util.PluginPermissionBuilder;
+import ru.n08i40k.npluginapi.util.PermissionBuilder;
 import ru.n08i40k.npluginapi.util.PluginUse;
 
 import java.util.ArrayList;
@@ -18,14 +18,13 @@ import java.util.Set;
 public abstract class SubCommand extends PluginUse {
     protected final SubCommandMap subcommands;
 
-    protected final PluginPermissionBuilder permissionBuilder;
+    protected final PermissionBuilder permissionBuilder;
     protected final LocaleRequestBuilder localeRequestBuilder;
 
     public SubCommand(@Nullable SubCommand parentCommand) {
-        PluginPermissionBuilder parentPermissionBuilder = parentCommand != null ?
-                parentCommand.getPermissionBuilder()
-                :
-                new PluginPermissionBuilder(null, NPluginApi.PLUGIN_NAME_LOWER)
+        PermissionBuilder parentPermissionBuilder = parentCommand != null ?
+                parentCommand.getPermissionBuilder() :
+                PermissionBuilder.of(NPluginApi.PLUGIN_NAME_LOWER)
                         .extend("command");
 
         LocaleRequestBuilder localeRequestBuilder = parentCommand != null ?
@@ -44,7 +43,7 @@ public abstract class SubCommand extends PluginUse {
     public abstract String getName();
 
     @NotNull
-    public PluginPermissionBuilder getPermissionBuilder() {
+    public PermissionBuilder getPermissionBuilder() {
         return permissionBuilder;
     }
 

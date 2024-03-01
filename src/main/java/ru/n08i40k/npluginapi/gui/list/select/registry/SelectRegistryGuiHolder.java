@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -14,11 +15,13 @@ import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.registry.NRegistry;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
+import ru.n08i40k.npluginapi.util.PermissionBuilder;
 import ru.n08i40k.npluginlocale.LocaleRequestBuilder;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static ru.n08i40k.npluginapi.NPluginApi.PLUGIN_NAME_LOWER;
 import static ru.n08i40k.npluginapi.gui.list.select.plugin.SelectPluginGuiHolder.Registry;
 
 @Getter
@@ -28,7 +31,15 @@ public class SelectRegistryGuiHolder implements InventoryHolder {
     private static final LocaleRequestBuilder localeRoot =
             new LocaleRequestBuilder(null, "gui.list.select_registry");
 
-    @Nullable ItemStack getIcon(NRegistry<?> nRegistry, NPlugin nPlugin, Registry registry, Material material) {
+    @Nullable
+    private ItemStack getIcon(Player player, NRegistry<?> nRegistry, NPlugin nPlugin, Registry registry, Material material) {
+        if (!PermissionBuilder.of(PLUGIN_NAME_LOWER)
+                .extend("command")
+                .extend("list")
+                .extend(registry.name().toLowerCase())
+                .has(player))
+            return null;
+
         long count = nRegistry.getData().keySet().stream().filter(
                 nResourceKey -> nResourceKey.getNPlugin().equals(nPlugin)).count();
 
@@ -50,7 +61,7 @@ public class SelectRegistryGuiHolder implements InventoryHolder {
         return nbtItem.getItem();
     }
 
-    public SelectRegistryGuiHolder(@NonNull String pluginId) {
+    public SelectRegistryGuiHolder(@NonNull Player player, @NonNull String pluginId) {
         this.pluginId = pluginId;
 
         NPluginManager nPluginManager = NPluginApi.getInstance().getNPluginManager();
@@ -63,19 +74,19 @@ public class SelectRegistryGuiHolder implements InventoryHolder {
 
         ItemStack icon;
 
-        icon = getIcon(nPluginManager.getNItemStackRegistry(), nPlugin, Registry.ITEMSTACK, Material.FEATHER);
+        icon = getIcon(player, nPluginManager.getNItemStackRegistry(), nPlugin, Registry.ITEMSTACK, Material.FEATHER);
         if (icon != null) inventory.addItem(icon);
 
-        icon = getIcon(nPluginManager.getNCraftRecipeRegistry(), nPlugin, Registry.CRAFT_RECIPE, Material.BOOK);
+        icon = getIcon(player, nPluginManager.getNCraftRecipeRegistry(), nPlugin, Registry.CRAFT_RECIPE, Material.BOOK);
         if (icon != null) inventory.addItem(icon);
 
-        icon = getIcon(nPluginManager.getNEnchantmentRegistry(), nPlugin, Registry.ENCHANTMENT, Material.ENCHANTED_BOOK);
+        icon = getIcon(player, nPluginManager.getNEnchantmentRegistry(), nPlugin, Registry.ENCHANTMENT, Material.ENCHANTED_BOOK);
         if (icon != null) inventory.addItem(icon);
 
-        icon = getIcon(nPluginManager.getNEntityRegistry(), nPlugin, Registry.ENTITY, Material.VILLAGER_SPAWN_EGG);
+        icon = getIcon(player, nPluginManager.getNEntityRegistry(), nPlugin, Registry.ENTITY, Material.VILLAGER_SPAWN_EGG);
         if (icon != null) inventory.addItem(icon);
 
-        icon = getIcon(nPluginManager.getNBlockRegistry(), nPlugin, Registry.BLOCK, Material.BEDROCK);
+        icon = getIcon(player, nPluginManager.getNBlockRegistry(), nPlugin, Registry.BLOCK, Material.BEDROCK);
         if (icon != null) inventory.addItem(icon);
 
     }

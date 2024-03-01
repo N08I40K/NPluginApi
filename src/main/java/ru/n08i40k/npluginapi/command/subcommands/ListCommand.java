@@ -50,10 +50,7 @@ public class ListCommand extends SubCommand {
             return false;
 
         if (args.length == 0) {
-            if (!permissionBuilder.extend("*").has(sender))
-                player.openInventory(new SelectPluginGuiHolder(Registry.ITEMSTACK).getInventory());
-            else
-                player.openInventory(new SelectPluginGuiHolder(null).getInventory());
+            player.openInventory(new SelectPluginGuiHolder(null).getInventory());
             return true;
         }
 
