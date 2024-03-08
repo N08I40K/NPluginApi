@@ -13,13 +13,13 @@ import ru.n08i40k.npluginapi.event.itemStack.NItemStackCraftEvent;
 import ru.n08i40k.npluginapi.event.itemStack.NItemStackEvent;
 
 public class NSharedEventListener implements Listener {
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlace(BlockPlaceEvent event) {
         NItemStackEvent.post(NItemStackBlockPlaceEvent.class, event.getItemInHand(), event);
         NBlockEvent.post(NBlockPlaceEvent.class, event.getBlock(), event);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onCraft(CraftItemEvent event) {
         NCraftItemEvent.post(NCraftItemEvent.class, event.getCurrentItem(), event);
         NItemStackEvent.post(NItemStackCraftEvent.class, event.getCurrentItem(), event);

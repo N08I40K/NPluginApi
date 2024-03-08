@@ -3,7 +3,7 @@ package ru.n08i40k.npluginapi.resource;
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.NonNull;
-import net.minecraft.server.v1_16_R3.MinecraftKey;
+import net.minecraft.resources.ResourceLocation;
 import org.bukkit.NamespacedKey;
 import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
@@ -34,7 +34,6 @@ public class NResourceKey {
         namespacedKey = new NamespacedKey(nPlugin.getId(), objectId);
     }
 
-    @SuppressWarnings("deprecation")
     public NResourceKey(@NonNull NPlugin nPlugin, @NonNull String objectId) {
         this.nPlugin = nPlugin;
         this.objectId = objectId;
@@ -46,8 +45,8 @@ public class NResourceKey {
         return namespacedKey.toString();
     }
 
-    public MinecraftKey toMinecraft() {
-        return new MinecraftKey(namespacedKey.getNamespace(), namespacedKey.getKey());
+    public ResourceLocation toMinecraft() {
+        return new ResourceLocation(namespacedKey.getNamespace(), namespacedKey.getKey());
     }
 
     public static NResourceKey parse(@NonNull String resourceKey) {

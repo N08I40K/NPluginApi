@@ -7,7 +7,8 @@ import de.tr7zw.nbtapi.NBTListCompound;
 import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import lombok.NonNull;
 import net.kyori.adventure.text.Component;
-import net.minecraft.server.v1_16_R3.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -17,8 +18,6 @@ import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.util.RomanNumber;
 import ru.n08i40k.npluginlocale.NColorUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 
 @SuppressWarnings("unused")
@@ -111,32 +110,22 @@ public class NEnchantmentAccessor {
         NEnchantedLore.setLore(itemStack);
     }
 
-    public static IChatBaseComponent getFullNameNMS(NEnchantment nEnchantment, int level) {
+    public static net.minecraft.network.chat.Component getFullNameNMS(NEnchantment nEnchantment, int level) {
         return getFullNameNMS(nEnchantment.getNmsEnchantment(), nEnchantment.getName(), level);
     }
-
-    public static IChatBaseComponent getFullNameNMS(net.minecraft.server.v1_16_R3.Enchantment enchantment, String name, int level) {
+//
+    public static net.minecraft.network.chat.Component getFullNameNMS(net.minecraft.world.item.enchantment.Enchantment enchantment, String name, int level) {
         if (level > 1 || enchantment.getMaxLevel() > 1)
             name += " " + RomanNumber.toRoman(level);
 
-        IChatMutableComponent message = new ChatMessage(name);
-        message.a(enchantment.c() ? EnumChatFormat.RED : EnumChatFormat.GRAY);
+        MutableComponent message = net.minecraft.network.chat.Component.literal(name);
+        message.withStyle(enchantment.isCurse() ? ChatFormatting.RED : ChatFormatting.GRAY);
 
         return message;
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public static class NEnchantedLore {
-        private static String getNameHexColor(@NonNull ChatHexColor chatHexColor) {
-            try {
-                Method getColor = ChatHexColor.class.getDeclaredMethod("c");
-                getColor.setAccessible(true);
-                return "&" + getColor.invoke(chatHexColor);
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
         public static List<Component> getEnchantmentsLore(@NonNull ItemStack itemStack) {
             List<Component> lore = new ArrayList<>();
 
@@ -145,8 +134,8 @@ public class NEnchantmentAccessor {
             enchantments.forEach((nEnchantment, level) -> {
                 StringBuilder stringBuilder = new StringBuilder("&#");
 
-                net.minecraft.server.v1_16_R3.Enchantment nmsEnchantment = nEnchantment.getNmsEnchantment();
-                stringBuilder.append(nmsEnchantment.c() ? "ff5555" : "aaaaaa");
+                net.minecraft.world.item.enchantment.Enchantment nmsEnchantment = nEnchantment.getNmsEnchantment();
+                stringBuilder.append(nmsEnchantment.isCurse() ? "ff5555" : "aaaaaa");
                 stringBuilder.append(nEnchantment.getName());
 
                 if (nmsEnchantment.getMaxLevel() > 1 || level > 1) {

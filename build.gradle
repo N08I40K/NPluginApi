@@ -1,6 +1,7 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.github.johnrengelman.shadow' version "8.1.1"
+    id "io.papermc.paperweight.userdev" version "1.5.11"
     id 'maven-publish'
 }
 
@@ -9,7 +10,7 @@ java {
 }
 
 group = 'ru.n08i40k'
-version = '1.6'
+version = '1.7'
 
 repositories {
     mavenCentral()
@@ -33,10 +34,10 @@ repositories {
         name = "local"
         url = "file://\\C:\\Users\\n08i40k\\.m2\\repository"
     }
-    maven {
-        name = "songoda"
-        url = "https://repo.songoda.com/repository/public/"
-    }
+//    maven {
+//        name = "songoda"
+//        url = "https://repo.songoda.com/repository/public/"
+//    }
     maven {
         name = "dmulloy2-repo"
         url = "https://repo.dmulloy2.net/repository/public/"
@@ -45,8 +46,8 @@ repositories {
 
 dependencies {
     // Paper API
-    compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
-    compileOnly 'org.spigotmc:spigot:1.16.5'
+    paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.20.4-R0.1-SNAPSHOT")
+    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
 
     // Plugins
     compileOnly 'de.tr7zw:item-nbt-api-plugin:2.12.0'
@@ -80,7 +81,7 @@ shadowJar {
 }
 
 jar {
-    dependsOn = ['shadowJar']
+    dependsOn = ['shadowJar', 'reobfJar']
 }
 
 publishing {
@@ -95,7 +96,7 @@ publishing {
     }
 }
 
-def targetJavaVersion = 16
+def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -112,4 +113,9 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+tasks.register('copyPlugin', Copy) {
+    from("build/libs/${project.name}-${project.version}.jar")
+    into("C:/Users/n08i40k/Desktop/servers/paper-1.20.4/plugins")
 }

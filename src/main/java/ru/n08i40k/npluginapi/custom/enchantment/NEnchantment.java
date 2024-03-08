@@ -3,10 +3,10 @@ package ru.n08i40k.npluginapi.custom.enchantment;
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.NonNull;
-import net.minecraft.server.v1_16_R3.IRegistry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_16_R3.enchantments.CraftEnchantment;
+import org.bukkit.craftbukkit.v1_20_R3.enchantments.CraftEnchantment;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.slf4j.helpers.MessageFormatter;
@@ -27,20 +27,17 @@ public class NEnchantment implements INResourceKeyHolder {
     private final NPlugin nPlugin;
     private final NResourceKey nResourceKey;
 
-    private final net.minecraft.server.v1_16_R3.Enchantment nmsEnchantment;
-    private final Enchantment enchantment;
+    private final net.minecraft.world.item.enchantment.Enchantment nmsEnchantment;
+    private Enchantment enchantment = null;
 
     private final String name;
 
-    public NEnchantment(@NonNull NPlugin nPlugin, @NonNull net.minecraft.server.v1_16_R3.Enchantment nmsEnchantment, @NonNull String id, @NonNull String name) {
+    public NEnchantment(@NonNull NPlugin nPlugin, @NonNull net.minecraft.world.item.enchantment.Enchantment nmsEnchantment, @NonNull String id, @NonNull String name) {
         this.nPlugin = nPlugin;
         this.nResourceKey = new NResourceKey(nPlugin, id);
         this.name = name;
 
         this.nmsEnchantment = nmsEnchantment;
-
-        IRegistry.a(IRegistry.ENCHANTMENT, nResourceKey.toMinecraft(), this.nmsEnchantment);
-        this.enchantment = new CraftEnchantment(this.nmsEnchantment);
     }
 
     public boolean hasEnchantment(@NonNull ItemStack itemStack) {
@@ -70,8 +67,8 @@ public class NEnchantment implements INResourceKeyHolder {
     }
 
     public void register() {
-        this.<NamespacedKey>getEnchantmentMap("byKey").put(nResourceKey.getNamespacedKey(), enchantment);
-        this.<String>getEnchantmentMap("byName").put(nResourceKey.getObjectId(), enchantment);
+        Registry.register(BuiltInRegistries.ENCHANTMENT, nResourceKey.toMinecraft(), this.nmsEnchantment);
+        this.enchantment = new CraftEnchantment(nResourceKey.getNamespacedKey(), this.nmsEnchantment);
     }
 
     public void unregister() {

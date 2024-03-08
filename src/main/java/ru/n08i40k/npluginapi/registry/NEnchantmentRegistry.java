@@ -14,6 +14,8 @@ public class NEnchantmentRegistry extends NRegistry<NEnchantment> {
 
     @Override
     public NEnchantment add(@NonNull NEnchantment enchantment) {
+
+
         super.add(enchantment);
         enchantment.register();
 

@@ -1,6 +1,6 @@
 package ru.n08i40k.npluginapi.command;
 
-import org.apache.commons.lang.Validate;
+import lombok.NonNull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
@@ -36,10 +36,7 @@ public class MainCommand extends Command {
 
     @Override
     @NotNull
-    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
-        Validate.notNull(sender, "Sender cannot be null");
-        Validate.notNull(args, "Arguments cannot be null");
-        Validate.notNull(alias, "Alias cannot be null");
+    public List<String> tabComplete(@NonNull CommandSender sender, @NonNull String alias, @NonNull String[] args) throws IllegalArgumentException {
 
         if (args.length > 1)
             for (SubCommand subcommand : subcommands)
