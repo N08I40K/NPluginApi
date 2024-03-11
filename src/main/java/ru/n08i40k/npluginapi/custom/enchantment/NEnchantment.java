@@ -67,6 +67,7 @@ public class NEnchantment implements INResourceKeyHolder {
     }
 
     public void register() {
+//        BuiltInRegistries.ENCHANTMENT.
         Registry.register(BuiltInRegistries.ENCHANTMENT, nResourceKey.toMinecraft(), this.nmsEnchantment);
         this.enchantment = new CraftEnchantment(nResourceKey.getNamespacedKey(), this.nmsEnchantment);
     }
