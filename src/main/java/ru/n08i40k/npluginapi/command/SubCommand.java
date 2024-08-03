@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public abstract class SubCommand extends PluginUse {
     protected final SubCommandMap subcommands;
 

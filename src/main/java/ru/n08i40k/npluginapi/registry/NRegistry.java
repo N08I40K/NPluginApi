@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 @Getter
 public abstract class NRegistry<K extends INResourceKeyHolder> {
     protected final Map<NResourceKey, K> data;

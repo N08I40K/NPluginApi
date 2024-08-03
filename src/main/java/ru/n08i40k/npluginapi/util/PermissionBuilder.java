@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("unused")
 public class PermissionBuilder {
     @Nullable
     private final PermissionBuilder parent;

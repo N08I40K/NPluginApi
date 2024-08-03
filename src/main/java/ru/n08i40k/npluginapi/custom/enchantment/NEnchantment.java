@@ -3,13 +3,14 @@ package ru.n08i40k.npluginapi.custom.enchantment;
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.NonNull;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_20_R3.enchantments.CraftEnchantment;
+import org.bukkit.craftbukkit.enchantments.CraftEnchantment;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.slf4j.helpers.MessageFormatter;
+import ru.n08i40k.npluginapi.NPluginApi;
 import ru.n08i40k.npluginapi.plugin.NPlugin;
 import ru.n08i40k.npluginapi.resource.INResourceKeyHolder;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
@@ -27,15 +28,23 @@ public class NEnchantment implements INResourceKeyHolder {
     private final NPlugin nPlugin;
     private final NResourceKey nResourceKey;
 
+    private final NEnchantmentRarity rarity;
+
     private final net.minecraft.world.item.enchantment.Enchantment nmsEnchantment;
+    private Holder.Reference<net.minecraft.world.item.enchantment.Enchantment> holder = null;
+
     private Enchantment enchantment = null;
 
-    private final String name;
-
-    public NEnchantment(@NonNull NPlugin nPlugin, @NonNull net.minecraft.world.item.enchantment.Enchantment nmsEnchantment, @NonNull String id, @NonNull String name) {
+    public NEnchantment(@NonNull NPlugin nPlugin,
+                        @NonNull net.minecraft.world.item.enchantment.Enchantment nmsEnchantment,
+                        @NonNull NEnchantmentRarity rarity,
+                        @NonNull String id) {
         this.nPlugin = nPlugin;
         this.nResourceKey = new NResourceKey(nPlugin, id);
-        this.name = name;
+
+        this.rarity = rarity;
+        if (nmsEnchantment.getWeight() != rarity.getWeight())
+            throw new RuntimeException("Invalid weight!");
 
         this.nmsEnchantment = nmsEnchantment;
     }
@@ -67,8 +76,14 @@ public class NEnchantment implements INResourceKeyHolder {
     }
 
     public void register() {
-//        BuiltInRegistries.ENCHANTMENT.
-        Registry.register(BuiltInRegistries.ENCHANTMENT, nResourceKey.toMinecraft(), this.nmsEnchantment);
+        Registry<net.minecraft.world.item.enchantment.Enchantment> registry =
+                NPluginApi.getInstance()
+                        .getNPluginManager()
+                        .getNEnchantmentRegistry()
+                        .getVanillaRegistry();
+
+        this.holder = registry.createIntrusiveHolder(this.nmsEnchantment);
+        Registry.register(registry, nResourceKey.getResourceLocation(), this.nmsEnchantment);
         this.enchantment = new CraftEnchantment(nResourceKey.getNamespacedKey(), this.nmsEnchantment);
     }
 

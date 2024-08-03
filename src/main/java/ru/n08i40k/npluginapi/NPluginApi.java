@@ -1,12 +1,11 @@
 package ru.n08i40k.npluginapi;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import lombok.Getter;
 import meteordevelopment.orbit.IEventBus;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.n08i40k.npluginapi.command.MainCommand;
+import ru.n08i40k.npluginapi.event.NPluginApiUnloadEvent;
 import ru.n08i40k.npluginapi.event.NPluginBusManager;
 import ru.n08i40k.npluginapi.gui.list.select.craftRecipe.SelectCraftRecipeEventListener;
 import ru.n08i40k.npluginapi.gui.list.select.enchantment.SelectEnchantmentEventListener;
@@ -18,10 +17,6 @@ import ru.n08i40k.npluginapi.listener.NBlockEventListener;
 import ru.n08i40k.npluginapi.listener.NEntityEventListener;
 import ru.n08i40k.npluginapi.listener.NItemStackEventListener;
 import ru.n08i40k.npluginapi.listener.NSharedEventListener;
-import ru.n08i40k.npluginapi.listener.protocollib.SetCreativeSlotPacketListener;
-import ru.n08i40k.npluginapi.listener.protocollib.SetSlotPacketListener;
-import ru.n08i40k.npluginapi.listener.protocollib.TradeListPacketListener;
-import ru.n08i40k.npluginapi.listener.protocollib.WindowItemsPacketListener;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginlocale.Locale;
 
@@ -73,15 +68,10 @@ public final class NPluginApi extends JavaPlugin {
         pluginManager.registerEvents(new SelectEnchantmentEventListener(), this);
 
         pluginManager.registerEvents(new ViewCraftRecipeEventListener(), this);
-
-        // protocol lib events
-        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-        protocolManager.addPacketListener(new SetCreativeSlotPacketListener(this));
-        protocolManager.addPacketListener(new SetSlotPacketListener(this));
-        protocolManager.addPacketListener(new TradeListPacketListener(this));
-        protocolManager.addPacketListener(new WindowItemsPacketListener(this));
     }
 
     @Override
-    public void onDisable() {}
+    public void onDisable() {
+        NPluginBusManager.getEventBus().post(new NPluginApiUnloadEvent());
+    }
 }

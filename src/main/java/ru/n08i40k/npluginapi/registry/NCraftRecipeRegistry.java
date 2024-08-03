@@ -9,6 +9,7 @@ import ru.n08i40k.npluginapi.resource.NResourceKey;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 @NonNull
 @Getter
 public class NCraftRecipeRegistry extends NRegistry<NCraftRecipe> {

@@ -13,6 +13,7 @@ import ru.n08i40k.npluginapi.registry.NBlockRegistry;
 import ru.n08i40k.npluginapi.plugin.NPluginManager;
 import ru.n08i40k.npluginapi.resource.NResourceKey;
 
+@SuppressWarnings("unused")
 public class NBlockNBT {
     @Nullable
     public static NBTCompound getPersistentData(@NonNull Block block) {

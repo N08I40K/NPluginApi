@@ -1,7 +1,7 @@
 package ru.n08i40k.npluginapi.event.entity;
 
 import org.bukkit.entity.Entity;
-import org.spigotmc.event.entity.EntityDismountEvent;
+import org.bukkit.event.entity.EntityDismountEvent;
 import ru.n08i40k.npluginapi.custom.entity.NEntity;
 
 public class NEntityDismountEvent extends NEntityEvent<EntityDismountEvent> {

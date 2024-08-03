@@ -14,11 +14,11 @@ import ru.n08i40k.npluginapi.custom.craft.NCraftRecipe;
 import ru.n08i40k.npluginapi.custom.itemStack.NItemStack;
 import ru.n08i40k.npluginapi.custom.itemStack.NItemStackNBT;
 import ru.n08i40k.npluginapi.event.NPluginBusManager;
-import ru.n08i40k.npluginapi.event.itemStack.NItemStackEvent;
 import ru.n08i40k.npluginapi.registry.NCraftRecipeRegistry;
 
 import java.lang.reflect.InvocationTargetException;
 
+@SuppressWarnings("unused")
 @Getter
 @NonNull
 public abstract class NCraftEvent<T extends org.bukkit.event.Event> implements ICancellable {

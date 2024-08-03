@@ -24,29 +24,19 @@ public class NResourceKey {
     @NonNull
     private final NamespacedKey namespacedKey;
 
-    // совместимость (типо чтоб не сразу всё переделывать)
-    @Deprecated
-    @SuppressWarnings("unused")
-    public NResourceKey(@NonNull NPlugin nPlugin, @NonNull String groupId, @NonNull String objectId) {
-        this.nPlugin = nPlugin;
-        this.objectId = objectId;
-
-        namespacedKey = new NamespacedKey(nPlugin.getId(), objectId);
-    }
+    @NonNull
+    private final ResourceLocation resourceLocation;
 
     public NResourceKey(@NonNull NPlugin nPlugin, @NonNull String objectId) {
         this.nPlugin = nPlugin;
         this.objectId = objectId;
 
         namespacedKey = new NamespacedKey(nPlugin.getId(), objectId);
+        resourceLocation = ResourceLocation.fromNamespaceAndPath(namespacedKey.getNamespace(), namespacedKey.getKey());
     }
 
     public String toString() {
         return namespacedKey.toString();
-    }
-
-    public ResourceLocation toMinecraft() {
-        return new ResourceLocation(namespacedKey.getNamespace(), namespacedKey.getKey());
     }
 
     public static NResourceKey parse(@NonNull String resourceKey) {

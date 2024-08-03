@@ -12,11 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
-import org.spigotmc.event.entity.EntityDismountEvent;
-import org.spigotmc.event.entity.EntityMountEvent;
 import ru.n08i40k.npluginapi.event.entity.*;
 
-@SuppressWarnings({"UnstableApiUsage", "deprecation"})
 public class NEntityEventListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onAirChangeEvent(EntityAirChangeEvent event) {

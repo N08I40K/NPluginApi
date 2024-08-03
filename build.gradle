@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version "8.1.1"
-    id "io.papermc.paperweight.userdev" version "1.5.11"
+    id "io.papermc.paperweight.userdev" version "1.7.1"
+    id 'io.github.goooler.shadow' version '8.1.8'
     id 'maven-publish'
 }
 
@@ -10,7 +10,7 @@ java {
 }
 
 group = 'ru.n08i40k'
-version = '1.7'
+version = '1.8.0'
 
 repositories {
     mavenCentral()
@@ -34,10 +34,6 @@ repositories {
         name = "local"
         url = "file://\\C:\\Users\\n08i40k\\.m2\\repository"
     }
-//    maven {
-//        name = "songoda"
-//        url = "https://repo.songoda.com/repository/public/"
-//    }
     maven {
         name = "dmulloy2-repo"
         url = "https://repo.dmulloy2.net/repository/public/"
@@ -46,12 +42,11 @@ repositories {
 
 dependencies {
     // Paper API
-    paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.20.4-R0.1-SNAPSHOT")
-    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
+    paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.21-R0.1-SNAPSHOT")
+    compileOnly "io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT"
 
     // Plugins
-    compileOnly 'de.tr7zw:item-nbt-api-plugin:2.12.0'
-    compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
+    compileOnly 'de.tr7zw:item-nbt-api-plugin:2.13.1'
 
     // LomBok
     compileOnly 'org.projectlombok:lombok:1.18.30'
@@ -96,7 +91,7 @@ publishing {
     }
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
